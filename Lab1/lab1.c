@@ -2,7 +2,7 @@
 #include<pthread.h>
 
 #define NTHREADS 2
-#define NVET 10
+#define NVET 10000
 
 float vetor[NVET];
 
