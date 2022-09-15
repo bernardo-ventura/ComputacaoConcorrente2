@@ -8,7 +8,7 @@ float *m3;
 
 float *multiplicaMatriz(float *m1, float *m2, int n){
     int i, j, k;
-    m3 = (float*) malloc(sizeof(float) * );
+    m3 = (float*) malloc(sizeof(float) * n * n);
     if(!m3) {
       fprintf(stderr, "Erro de alocao da memoria da matriz\n");
       return NULL;
@@ -24,7 +24,7 @@ float *multiplicaMatriz(float *m1, float *m2, int n){
 }
 
 int main(int argc, char*argv[]) {
-   double tempoInitInit, tempoInitFinal, tempoExecInit, tempoExecFinal, tempoFinalInit, tempoFinalFinal;
+   double tempoInitInit, tempoInitFinal, tempoExecInit, tempoExecFinal, tempoFinalInit, tempoFinalFinal, tempoInicial, tempoExec, tempoFinal;
    GET_TIME(tempoInitInit);
     FILE * descritorArquivoM1;
     FILE * descritorArquivoM2;
@@ -115,25 +115,25 @@ int main(int argc, char*argv[]) {
    GET_TIME(tempoInitFinal);
 
    GET_TIME(tempoExecInit);
-   multiplicaMatriz(m1,m2,tam);
+   multiplicaMatriz(m1,m2,linhas);
    GET_TIME(tempoExecFinal);
 
    //print resultado para verificar corretude
-   printf("--------------------\n");
-   for(int i=0; i<linhas; i++) { 
-      for(int j=0; j<colunas; j++)
-        fprintf(stdout, "%.6f ", m1[i*colunas+j]);
-      fprintf(stdout, "\n");
-   }
-   printf("--------------------\n");
+   // printf("--------------------\n");
+   // for(int i=0; i<linhas; i++) { 
+   //    for(int j=0; j<colunas; j++)
+   //      fprintf(stdout, "%.6f ", m1[i*colunas+j]);
+   //    fprintf(stdout, "\n");
+   // }
+   // printf("--------------------\n");
 
-   printf("--------------------\n");
-   for(int i=0; i<linhas; i++) { 
-      for(int j=0; j<colunas; j++)
-        fprintf(stdout, "%.6f ", m2[i*colunas+j]);
-      fprintf(stdout, "\n");
-   }
-   printf("--------------------\n");
+   // printf("--------------------\n");
+   // for(int i=0; i<linhas; i++) { 
+   //    for(int j=0; j<colunas; j++)
+   //      fprintf(stdout, "%.6f ", m2[i*colunas+j]);
+   //    fprintf(stdout, "\n");
+   // }
+   // printf("--------------------\n");
 
    // printf("--------------------\n");
    // for(int i=0; i<linhas; i++) { 
@@ -172,10 +172,14 @@ int main(int argc, char*argv[]) {
    free(m3);
    GET_TIME(tempoFinalFinal);
 
-   printf("Tempo Inicial: %lf\n",tempoInitFinal-tempoInitInit);
-   printf("Tempo de Execução: %lf\n",tempoExecFinal-tempoExecInit);
-   printf("Tempo Final: %lf\n",tempoFinalFinal-tempoFinalInit);
-   printf("Razão: %lf\n",((tempoInitFinal-tempoInitInit)+(tempoExecFinal-tempoExecInit)+(tempoFinalFinal-tempoFinalInit)/(tempoInitFinal-tempoInitInit)+(tempoExecFinal-tempoExecInit)/2+(tempoFinalFinal-tempoFinalInit)));
+   tempoInicial = tempoInitFinal - tempoInitInit;
+   tempoExec= tempoExecFinal-tempoExecInit;
+   tempoFinal = tempoFinalFinal-tempoFinalInit;
+
+   printf("Tempo Inicial: %lf\n",tempoInicial);
+   printf("Tempo de Execução: %lf\n",tempoExec);
+   printf("Tempo Final: %lf\n",tempoFinal);
+   printf("Razão: %lf\n",(( (tempoInicial)+(tempoExec)+(tempoFinal) ) / ( (tempoInicial)+ ((tempoExec)/2) + (tempoFinal) )));
 
    return 0;
 
